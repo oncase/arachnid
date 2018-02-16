@@ -9,11 +9,6 @@
     <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
-      <parameter>
-        <name>link</name>
-        <default_value>http://g1.com.br</default_value>
-        <description/>
-      </parameter>
     </parameters>
     <log>
       <trans-log-table>
@@ -469,173 +464,20 @@
     </hop>
     <hop>
       <from>Filter rows</from>
-      <to>Dummy (do nothing)</to>
+      <to>flag n encontrado</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Write to log</from>
+      <to>flag encontrado</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>flag encontrado</from>
+      <to>Set Variables sucesso</to>
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>Dados Concat</name>
-    <type>DataGrid</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>concat</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <data>
-      <line>
-        <item>/robots.txt</item>
-      </line>
-    </data>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>128</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Get link</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>link_var</name>
-        <variable>${link}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Write to log</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <loglevel>log_level_basic</loglevel>
-    <displayHeader>Y</displayHeader>
-    <limitRows>N</limitRows>
-    <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>##### param link #####</logmessage>
-    <fields>
-      <field>
-        <name>link_var</name>
-      </field>
-      <field>
-        <name>link_completo</name>
-      </field>
-      <field>
-        <name>pesquisa_robots</name>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1040</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Consulta o /robots.txt</name>
-    <type>HTTP</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <url/>
-    <urlInField>Y</urlInField>
-    <urlField>link_completo</urlField>
-    <encoding>UTF-8</encoding>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <socketTimeout>10000</socketTimeout>
-    <connectionTimeout>10000</connectionTimeout>
-    <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
-    <lookup>
-    </lookup>
-    <result>
-      <name>pesquisa_robots</name>
-      <code/>
-      <response_time/>
-      <response_header/>
-    </result>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Concat link</name>
     <type>ConcatFields</type>
@@ -717,8 +559,93 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>112</yloc>
+      <xloc>384</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Consulta o /robots.txt</name>
+    <type>HTTP</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <url/>
+    <urlInField>Y</urlInField>
+    <urlField>link_completo</urlField>
+    <encoding>UTF-8</encoding>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <socketTimeout>10000</socketTimeout>
+    <connectionTimeout>10000</connectionTimeout>
+    <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
+    <lookup>
+    </lookup>
+    <result>
+      <name>pesquisa_robots</name>
+      <code/>
+      <response_time/>
+      <response_header/>
+    </result>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dados Concat</name>
+    <type>DataGrid</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>concat</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <data>
+      <line>
+        <item>/robots.txt</item>
+      </line>
+    </data>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>48</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -734,7 +661,7 @@
       <schema_name/>
     </partitioning>
     <send_true_to>Write to log</send_true_to>
-    <send_false_to>Dummy (do nothing)</send_false_to>
+    <send_false_to>flag n encontrado</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
@@ -744,7 +671,7 @@
         <value>
           <name>constant</name>
           <type>String</type>
-          <text>sitemap.xml</text>
+          <text>rss</text>
           <length>-1</length>
           <precision>-1</precision>
           <isnull>N</isnull>
@@ -760,14 +687,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>112</yloc>
+      <xloc>784</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
+    <name>Get link</name>
+    <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -776,6 +703,131 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <fields>
+      <field>
+        <name>link_var</name>
+        <variable>${link}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Set Variables sucesso</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <field_name>flag</field_name>
+        <variable_name>flag_rss</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value>#####Error!#####</default_value>
+      </field>
+    </fields>
+    <use_formatting>Y</use_formatting>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1200</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>##### param link #####</logmessage>
+    <fields>
+      <field>
+        <name>link_var</name>
+      </field>
+      <field>
+        <name>link_completo</name>
+      </field>
+      <field>
+        <name>pesquisa_robots</name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>784</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>flag encontrado</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>flag</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>s</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -785,7 +837,45 @@
     </remotesteps>
     <GUI>
       <xloc>1008</xloc>
-      <yloc>32</yloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>flag n encontrado</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>flag</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>n</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -797,18 +887,6 @@
   <attributes>
     <group>
       <name>explorerState</name>
-      <attribute>
-        <key>Get link</key>
-        <value/>
-      </attribute>
-      <attribute>
-        <key>Concat link</key>
-        <value/>
-      </attribute>
-      <attribute>
-        <key>Consulta o /robots.txt</key>
-        <value/>
-      </attribute>
     </group>
   </attributes>
 </transformation>
