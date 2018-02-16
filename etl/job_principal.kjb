@@ -13,7 +13,7 @@
   <parameters>
     <parameter>
       <name>link</name>
-      <default_value>http://jconline.ne10.uol.com.br</default_value>
+      <default_value>https://www.uol.com.br</default_value>
       <description/>
     </parameter>
   </parameters>
@@ -419,11 +419,14 @@
       <type>WRITE_TO_LOG</type>
       <logmessage>######## TESTE ############
 
-
+flag_sitemap: ${flag_sitemap}
+flag_rss: ${flag_rss}
+Decisao: ${var_decisao}
+site: ${link}
 
 ###########################</logmessage>
       <loglevel>Basic</loglevel>
-      <logsubject>flag_sitemap: ${flag_sitemap}    flag_rss: ${flag_rss}    site: ${link}</logsubject>
+      <logsubject/>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
@@ -452,6 +455,33 @@
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>https://stackoverflow.com
+http://g1.globo.com
+http://jconline.ne10.uol.com.br
+
+
+
+https://www.uol.com.br</note>
+      <xloc>704</xloc>
+      <yloc>32</yloc>
+      <width>254</width>
+      <heigth>181</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <attributes>
     <group>
